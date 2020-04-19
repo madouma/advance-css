@@ -1,0 +1,68 @@
+.btn {
+  &:link,
+  &:visited {
+    text-decoration: none;
+    padding: 1.5rem 4rem;
+    text-transform: uppercase;
+    display: inline-block;
+    border-radius: 10rem;
+    transition: all 0.2s;
+    position: relative;
+
+    &:hover {
+      transform: translateY(-0.3rem);
+      box-shadow: 0 1rem 2rem rgba($color-black, 0.2);
+
+      /* pseudo hover props */
+      &::after {
+        transform: scaleX(1.4) scaleY(1.6);
+        opacity: 0; /* So it can fade out at the end of the animation */
+      }
+    }
+
+    &:active {
+      transform: translateY(-0.1rem);
+      box-shadow: 0 0.5rem 1rem rgba($color-black, 0.2);
+    }
+
+    /* 
+      ** button pseudo element (child on the button). 
+      ** It will appear right next to the parent unless we hide with z-index and absolute positining
+      */
+    &::after {
+      /* Required properties */
+      content: "";
+      display: inline-block;
+      height: 100%;
+      width: 100%;
+
+      /* inherited props */
+      border-radius: 10rem;
+
+      /* hidden initially relative to immidiate parent, in this case .btn*/
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+
+      /* animation */
+      transition: all 0.4s ease-out;
+    }
+  }
+
+  // modifiers
+  &--white {
+    background: $color-white;
+    color: inherit;
+
+    /* pseudo inherited color props */
+    &::after {
+      background: $color-white;
+    }
+  }
+
+  &--animated {
+    animation: moveInBottom 0.5s ease-out 0.75s;
+    animation-fill-mode: backwards; /* to prevent non animated intial state */
+  }
+}
